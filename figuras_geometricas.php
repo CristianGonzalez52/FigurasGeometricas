@@ -3,7 +3,7 @@
 	<html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <title>Mi primera página</title>
+    <title>Figuras geometricas</title>
   </head>';
   
   
@@ -19,49 +19,68 @@
   }else{
 	    $lado=50;
   }
-	//echo $lado;
+
+
+    if(!empty($_POST['base'])){
+	  $base=$_POST['base']+50;
+  }else{
+	    $base=150;
+  }
+
+     if(!empty($_POST['altura'])){
+	  $altura=150-$_POST['altura'];
+  }else{
+	    $altura=50;
+  }
+
+
+	
  	
 	$area=3.14316*$radio*$radio;
 	$peric=2*(3.14316)*$radio;
 	
 	$areac=$lado*$lado;
 	$percuadr=$lado*4;
+
+	 $altura1=150-$altura;
+	 $base1=$base-50;
+
+	$areaTri=($base1*$altura1)/2;
+	$hipoTri= pow((pow($base1,2)+pow($altura1,2)),0.5);
+	$perTri=$base1+$hipoTri+$altura1;
 	
 	
 	
   echo'
   
-  <canvas id="lienzo" width="250" height="200">Su navegador no soporta canvas :( </canvas>
   
-  
-  <canvas id="sectorCircular" width="250" height="200">Su navegador no soporta canvas :( </canvas>
-  
-  
-  <canvas id="lienzo1" width="250" height="200">Su navegador no soporta canvas :( </canvas>
-  
-  <canvas id="myCanvas" width="'.$lado.'" height="'.$lado.'" style="border:1px solid #000000;">Your browser does not support the HTML5 canvas tag.</canvas>
-  
-  
+  <table border ="1" align="center">
+  	<tr >
+		<h1 align="center">Figuras Geometricas</h1>
+	</tr>
+  	<tr>
+  		<td>
+ 			 <canvas id="Circulo" width="310" height="200"></canvas>
+  		</td>
+  		<td>
+	  		<canvas id="Triangulo"  width="310" height="200"></canvas>
+  		</td>
+  		<td>
+			 <canvas id="Cuadrado" width="310" height="200" "></canvas>
+  		</td>
+  	</tr>
+  	<tr>
+  	
+  	</tr>
+  </table>
   
   <script>
-	var radio = null;
-    var shelf = null;
-    var status = null;
-
-        //submit
-        function sub(){
-            radio = document.getElementById("radio");
-            shelf = document.getElementById("shelf");
-        };
-  
-  
-  
-  	var lienzo = document.getElementById("lienzo");
-		if (lienzo && lienzo.getContext) {
-		var contexto = lienzo.getContext("2d");
+  	var Circulo = document.getElementById("Circulo");
+		if (Circulo && Circulo.getContext) {
+		var contexto = Circulo.getContext("2d");
 			if (contexto) {
-					var X = lienzo.width/2;
-					var Y = lienzo.height/2;
+					var X = Circulo.width/2;
+					var Y = Circulo.height/2;
 					var r = '.$radio.'
 
 					contexto.strokeStyle = "#006400";
@@ -72,117 +91,129 @@
 					contexto.stroke();
 			}
 		}
+
+
+		var Cuadrado = document.getElementById("Cuadrado");
+		if (Cuadrado && Cuadrado.getContext) {
+		var contexto = Cuadrado.getContext("2d");
+			if (contexto) {
+					 contexto.fillRect(30,50,'.$lado.','.$lado.');
+    				// contexto.clearRect(0,45,60,60);
+    				//contexto.strokeRect(50,50,50,50);
+					contexto.strokeStyle = "#006400";
+					contexto.fillStyle = "#6ab150";
+					contexto.lineWidth = 5;
+					
+					contexto.fill();
+					contexto.stroke();
+			}
+		}
+
+
 		
 		
-		////
-		
-				var canvas = document.getElementById("sectorCircular");
+				var canvas = document.getElementById("Triangulo");
 				if (canvas && canvas.getContext) {
 					var ctx = canvas.getContext("2d");
 					if (ctx) {
-						// El centro del circulo (X,Y) cuyo sector vamos a dibujar, y el radio R de este.
-						var X = canvas.width/2;
-						var Y = 10;
-						var R = 140;
-						// El ángulo de partida ap y el ángulo final af
-						var ap = (Math.PI / 180) * 60;
-						var af = (Math.PI / 180) * 120;
-						// Las coordenadas del punto de partida en la circunferencia
-						var Xap = X+R * Math.cos(ap);
-						var Yap = Y+R * Math.sin(ap);
 						
-						// estilos
 						ctx.fillStyle = "#abcdef";
 						ctx.strokeStyle = "#1E90FF";
 						ctx.lineWidth = 5;
-						// empezamos a dibujar
 						ctx.beginPath();
-						ctx.moveTo(X,Y);
-						ctx.lineTo(Xap,Yap);
-						 ctx.lineTo(Xap,Yap);
+						ctx.moveTo(50,150);
+						ctx.lineTo('.$base.','.$altura.');
+						 ctx.lineTo('.$base.',150);
 						
-						  
-						ctx.arc(X,Y,R,ap,af);
 						ctx.closePath();
 						ctx.fill();
 						ctx.stroke();
 					}
-				}
-				
-				
-				
-				function retornarLienzo(x) {
-				  var canvas = document.getElementById(x);
-				  if (canvas.getContext) {
-					var lienzo = canvas.getContext("2d");   
-					return lienzo;
-				  } else
-					return false;
-}
-				
-				function dibujar() {
-				  var lienzo=retornarLienzo("lienzo1");
-				  if (lienzo) {
-					lienzo.fillStyle="rgb(255,0,0)";
-					lienzo.strokeStyle="rgb(0,0,255)";
-					lienzo.lineWidth=5;
-					lienzo.beginPath();
-					lienzo.moveTo(150,10);
-					lienzo.lineTo(10,290);
-					lienzo.lineTo(290,290);
-					lienzo.lineTo(150,10);
-					lienzo.fill();
-					lienzo.stroke();    
-				  }
-				}
-				
+				}			
 				
 </script>
   <body  >
   
+  <table border ="1" align="center">
+  	<tr>
+  		<td width="310">
+	  		<form action="" method="POST">
+				<p>Ingrese el Radio</p>
+				<input type="number" id="radio" name="radio" min="1" required
+		       minlength="4" maxlength="8" size="10">
+			   
+			   <input type="submit" value="Calcular">
+			   
+			   <table border ="0">
+				<tr>
+					<td> 
+					<h5>EL AREA DEL CIRCULO ES: '.$area.' </h5>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h5>EL PERIMETRO DEL CIRCULO ES: '.$peric.'</h5>
+					</td>
+				</tr>
+			   </table>
+			   
+			</form> 
+  		</td>
+  		<td width="310">
+	  		<form action="" method="POST">
+			    <p>Ingrese la base del tiangulo Rectangulo</p>
+			<input type="number" id="base" name="base"  min="1" required
+		       minlength="4" maxlength="8" size="10">
+
+			    <p>Ingrese la altura del tiangulo Rectangulo</p>
+			<input type="number" id="altura" name="altura"  min="1" required
+		       minlength="4" maxlength="8" size="10">
+			   <input type="submit" value="Calcular">
+
+
+
+			   <table border ="0">
+			   <tr>
+					<td> 
+					<h5>EL AREA DEL TRIANGULO ES:'.$areaTri.' </h5>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h5>EL PERIMETRO DEL TRIANGULO ES :'.$perTri.'</h5>
+					</td>
+				</tr>
+			   </table>
+			   
+			</form> 
+  		</td>
+  		<td width="310">
+			<form action="" method="POST">
+			   <p>Ingrese el Tamaño del Cuadrado</p>
+				<input type="number" id="lado" name="lado" required minlength="4"  min="1"  maxlength="8" size="10">
+			   <input type="submit" value="Calcular">
+			   
+		   	  <table border ="0">
+			   <tr>
+					<td> 
+					<h5>EL AREA DEL CUADRADO ES:'.$areac.' </h5>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h5>EL PERIMETRO DEL CUADRADO ES :'.$percuadr.'</h5>
+					</td>
+				</tr>
+			   </table>
+
+			</form> 
+  		</td>
+  	</tr>
+  	<tr>
+  	
+  	</tr>
+  </table>
   
-  
-	<form action="" method="POST">
-		<p>Ingrese el Radio</p>
-		<input type="number" id="radio" name="radio" required
-       minlength="4" maxlength="8" size="10">
-	   
-	   
-	   <input type="submit" value="Submit">
-	   
-	   <table border ="0">
-	   <tr><td> EL AREA DEL CIRCULO ES:'.$area.'
-	   </td></tr><tr>
-	   <td> EL PERIMETRO DEL CIRCULO ES :'.$peric.'
-	   </td></tr>
-	   </table>
-	   
-	</form> 
-	
-	
-	
-	<form action="" method="POST">
-	   <p>Ingrese el Tamaño del Cuadrado</p>
-		<input type="number" id="lado" name="lado" required minlength="4" maxlength="8" size="10">
-	   <input type="submit" value="Submit">
-	   
-	   	<table border ="0">
-	   <tr><td> EL AREA DEL CUADRADO ES:'.$areac.'
-	   </td></tr><tr>
-	   <td> EL PERIMETRO DEL CUADRADO ES :'.$percuadr.'
-	   </td></tr>
-	   </table>
-	   
-	   
-	</form> 
-	
-	<form3 action="" method="POST">
-	    <p>Ingrese el tamaño del tiangulo</p>
-	<input type="number" id="name" name="name" required
-       minlength="4" maxlength="8" size="10">
-	   <input type="submit" value="Submit">
-	</form> 
-	   
   </body>
 </html>
 
