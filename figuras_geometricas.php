@@ -189,7 +189,7 @@
   		</td>
   		<td width="310">
 			<form action="" method="POST">
-			   <p>Ingrese el Tamaño del Cuadrado</p>
+			   <p>Ingrese el lado del Cuadrado</p>
 				<input type="number" id="lado" name="lado" required minlength="4"  min="1"  maxlength="8" size="10">
 			   <input type="submit" value="Calcular">
 			   
